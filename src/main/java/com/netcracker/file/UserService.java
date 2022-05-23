@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-@Service
+
 public final class UserService {
 
     public static void fileWrite(User person){
