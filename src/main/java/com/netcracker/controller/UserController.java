@@ -1,7 +1,7 @@
 package com.netcracker.controller;
 
-import com.netcracker.file.FilePerson;
-import com.netcracker.model.Person;
+import com.netcracker.file.UserService;
+import com.netcracker.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,7 +17,7 @@ import java.util.Date;
 
 
 @Controller
-public class PersonController {
+public class UserController {
 
     @GetMapping(value = {"/", "/index"})
     public String index(HttpServletRequest request) {
@@ -27,31 +27,31 @@ public class PersonController {
 
     @GetMapping("/person")
     public String personForm(Model model){
-        model.addAttribute("person",new Person());
+        model.addAttribute("person",new User());
         return "person";
     }
 
     @GetMapping("/search")
     public String userSearchForm(Model model){
-        model.addAttribute("person",new Person());
+        model.addAttribute("person",new User());
         return "search";
     }
 
     @GetMapping("/true-result")
-    public String trueResult(@ModelAttribute Person person) {
+    public String trueResult(@ModelAttribute User person) {
         System.out.println(person.toString());
         return "true-result";
     }
 
     @PostMapping("/person")
-    public String personSubmit(@ModelAttribute Person person) {
-            FilePerson.fileWrite(person);
-            return "resultPerson";
+    public String personSubmit(@ModelAttribute User person) {
+            UserService.fileWrite(person);
+            return "result-person";
 
     }
     @PostMapping("/search")
-    public String userSearchSubmit(@ModelAttribute Person person, Model model, HttpServletRequest request, HttpServletResponse response) {
-        Person tmp = FilePerson.fileCheckPerson(person);
+    public String userSearchSubmit(@ModelAttribute User person, Model model, HttpServletRequest request, HttpServletResponse response) {
+        User tmp = UserService.fileCheckUser(person);
        if(tmp==null){
         return "false-resylt";
        } else {

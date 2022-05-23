@@ -1,7 +1,7 @@
 package com.netcracker.model;
 
 
-public class Person {
+public class User {
 
 
     private String lastName;
@@ -12,13 +12,13 @@ public class Person {
     private String email;
     private String placeOfWork;
 
-    public void personSet(Person person) {
-        this.lastName = person.lastName;
-        this.firsName = person.firsName;
-        this.age = person.age;
-        this.salaryLevel = person.salaryLevel;
-        this.email = person.email;
-        this.placeOfWork = person.placeOfWork;
+    public void personSet(User user) {
+        this.lastName = user.lastName;
+        this.firsName = user.firsName;
+        this.age = user.age;
+        this.salaryLevel = user.salaryLevel;
+        this.email = user.email;
+        this.placeOfWork = user.placeOfWork;
     }
 
     public String getLastName() {

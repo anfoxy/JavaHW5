@@ -1,6 +1,6 @@
 package com.netcracker.file;
 
-import com.netcracker.model.Person;
+import com.netcracker.model.User;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
-public abstract class FilePerson  {
+public final class UserService {
 
-    public static void fileWrite(Person person){
+    public static void fileWrite(User person){
         File log = new File("person.txt");
         try{
             if(!log.exists()){
@@ -39,7 +39,7 @@ public abstract class FilePerson  {
         }
     }
 
-    public static Person fileCheckPerson(Person person){
+    public static User fileCheckUser(User person){
         List<String> lines = null;
         try {
             lines = Files.readAllLines(Paths.get("person.txt"), UTF_8);
@@ -48,12 +48,12 @@ public abstract class FilePerson  {
         }
         boolean b = false;
         for (String line : lines) {
-            String[] words = line.split(" ");
-            for (String word : words) {
+            String[] split = line.split(" ");
+            for (String word : split) {
                 if(b){
                     if (word.equalsIgnoreCase(person.getFirsName())) {
                         System.out.println("Найдено");
-                        return stringToPerson(words);
+                        return stringToUser(split);
                     } else b=false;
                 }
                 if (word.equalsIgnoreCase(person.getLastName())) {
@@ -65,19 +65,19 @@ public abstract class FilePerson  {
         return null;
     }
 
-    public static Person fileUploadedPerson(byte[] file){
+    public static User fileUploadedUser(byte[] file){
         String strFile = new String(file);
         String[] splitStr = strFile.split(" ");
-        Person person = stringToPerson(splitStr);
+        User person = stringToUser(splitStr);
         fileWrite(person);
         return  person;
     }
-    public static Person stringToPerson(String[] str){
+    public static User stringToUser(String[] str){
         if(str.length < 5) return null;
         if(Pattern.matches("[a-zA-Z]+",str[0])
                 &&Pattern.matches("[a-zA-Z]+",str[1])
                 &&Pattern.matches("(\\w\\.?)+@[\\w\\.-]+\\.\\w{2,4}",str[4])) {
-            Person person1 =  new Person();
+            User person1 =  new User();
             person1.setLastName(str[0]);
             person1.setFirsName(str[1]);
             person1.setAge(Integer.parseInt(str[2]));

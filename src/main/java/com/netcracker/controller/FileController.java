@@ -1,7 +1,6 @@
 package com.netcracker.controller;
 
-import com.netcracker.file.FilePerson;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.netcracker.file.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
     public @ResponseBody String handleFileUpload(@RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             try {
-                FilePerson.fileUploadedPerson(file.getBytes());
+                UserService.fileUploadedUser(file.getBytes());
                 return "You have successfully uploaded the file <br />"+
                         "<a href=\"/\">Go to the main page</a>";
             } catch (Exception e) {
